@@ -13,17 +13,27 @@ public class RootBodyManager : MonoBehaviour
 
     public void UpdateRootList()
     {
-        rootList.Add(new Root(transform.position, transform.rotation));
+        Root newRoot = new Root(transform.position, transform.rotation);
+
+        foreach(Root root in rootList)
+        {
+            if (root.position == newRoot.position || root.rotation == newRoot.rotation)
+            {
+                return;
+            }
+        }
+
+        rootList.Add(newRoot);
     }
 
     public void ClearRootList()
     {
         rootList.Clear();
-        //rootList.Add(new Root(transform.position, transform.rotation));
         UpdateRootList();
     }
 }
 
+[System.Serializable]
 public class Root
 {
     public Vector3 position;
@@ -34,4 +44,5 @@ public class Root
         this.position = position;
         this.rotation = rotation;
     }
+
 }
